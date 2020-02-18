@@ -45,6 +45,10 @@ dependencies:
   provider: ^4.0.4
   # 图片缓存 https://github.com/renefloor/flutter_cached_network_image
   cached_network_image: ^2.0.0
+  # Flutter 轮播图 https://github.com/best-flutter/flutter_swiper
+  flutter_swiper: ^1.1.6
+  # 侧滑删除 https://github.com/letsar/flutter_slidable
+  flutter_slidable: ^0.5.4
 
 dev_dependencies:
   flutter_test:
