@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_shop/home/splash_page.dart';
 import 'package:flutter_shop/provider/theme_provider.dart';
 import 'package:flutter_shop/routers/application.dart';
 import 'package:flutter_shop/routers/routers.dart';
@@ -39,9 +40,14 @@ class MyApp extends StatelessWidget {
           child: Consumer<ThemeProvider>(builder: (_, provider, __) {
             return MaterialApp(
               title: 'flutter shop',
+//              showPerformanceOverlay: true, //显示性能标签
+//              debugShowCheckedModeBanner: false,
+//              checkerboardRasterCacheImages: true,
+//              showSemanticsDebugger: true,
               theme: provider.getTheme(),
               darkTheme: provider.getTheme(isDarkMode: true),
               themeMode: provider.getThemeMode(),
+              home: home ?? SplashPage(),
               onGenerateRoute: Application.router.generator,
               localizationsDelegates: [
                 GlobalMaterialLocalizations.delegate,

@@ -51,7 +51,8 @@ dependencies:
   flutter_swiper: ^1.1.6
   # 侧滑删除 https://github.com/letsar/flutter_slidable
   flutter_slidable: ^0.5.4
-
+  # 处理键盘事件 https://github.com/diegoveloper/flutter_keyboard_actions
+  keyboard_actions: ^3.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,6 +73,19 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/data/
+    - assets/images/
+    - assets/images/home/
+    - assets/images/store/
+    - assets/images/state/
+    - assets/images/order/
+    - assets/images/order/dark/
+    - assets/images/login/
+    - assets/images/goods/
+    - assets/images/shop/
+    - assets/images/account/
+    - assets/images/statistic/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

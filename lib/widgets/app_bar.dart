@@ -4,7 +4,7 @@ import 'package:flutter_shop/res/resources.dart';
 import 'package:flutter_shop/util/theme_utils.dart';
 
 /// 自定义appBar
-class MyAppBar extends StatelessWidget {
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
   final String title;
   final String centerTitle;
@@ -103,4 +103,7 @@ class MyAppBar extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(48.0);
 }

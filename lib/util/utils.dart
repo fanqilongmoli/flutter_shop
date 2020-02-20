@@ -1,7 +1,29 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/util/theme_utils.dart';
+import 'package:keyboard_actions/keyboard_action.dart';
+import 'package:keyboard_actions/keyboard_actions_config.dart';
+
 
 class Utils {
-
+  static KeyboardActionsConfig getKeyboardActionsConfig(
+      BuildContext context, List<FocusNode> list) {
+    return KeyboardActionsConfig(
+        keyboardBarColor: ThemeUtils.getKeyboardActionsColor(context),
+        nextFocus: true,
+        actions: List.generate(
+            list.length,
+            (i) => KeyboardAction(focusNode: list[i], toolbarButtons: [
+                  (node) {
+                    return GestureDetector(
+                        onTap: () => node.unfocus(),
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Text('关闭'),
+                        ));
+                  }
+                ])));
+  }
 }
 
 /// 默认dialog背景色为半透明黑色，这里修改源码改为透明
