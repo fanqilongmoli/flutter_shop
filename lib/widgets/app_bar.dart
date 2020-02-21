@@ -21,7 +21,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.actionName: '',
       this.backImg: 'assets/images/ic_back_black.png',
       this.onPressed,
-      this.isBack})
+      this.isBack: true})
       : super(key: key);
 
   @override
@@ -58,6 +58,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                     title.isEmpty ? centerTitle : title,
                     style: TextStyle(fontSize: Dimens.font_sp18),
                   ),
+                  margin: EdgeInsets.symmetric(horizontal: 48.0),
                 ),
               ),
               isBack

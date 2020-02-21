@@ -1,6 +1,11 @@
+import 'package:flustars/flustars.dart' as FlutterStars;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/common/common.dart';
+import 'package:flutter_shop/login/login_router.dart';
 import 'package:flutter_shop/res/resources.dart';
+import 'package:flutter_shop/routers/fluro_navigator.dart';
+import 'package:flutter_shop/store/store_router.dart';
 import 'package:flutter_shop/util/toast.dart';
 import 'package:flutter_shop/util/utils.dart';
 import 'package:flutter_shop/widgets/app_bar.dart';
@@ -21,6 +26,34 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordController = TextEditingController();
 
   bool _isClick = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _nameController.addListener(_verify);
+    _passwordController.addListener(_verify);
+    _nameController.text = FlutterStars.SpUtil.getString(Constant.phone);
+  }
+
+  // 校验
+  void _verify() {
+    String name = _nameController.text;
+    String password = _passwordController.text;
+    bool isClick = true;
+    if (name.isEmpty || name.length < 11) {
+      isClick = false;
+    }
+    if (password.isEmpty || password.length < 6) {
+      isClick = false;
+    }
+
+    if (isClick != _isClick) {
+      setState(() {
+        _isClick = isClick;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                 '还没有账号？快去注册',
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
-              onTap: (){
-                Toast.show('去注册');
+              onTap: () {
+                NavigatorUtils.push(context, LoginRouter.registerPage);
               },
             ),
           )
@@ -105,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _login() {
-//    FlutterStars.SpUtil.putString(Constant.phone, _nameController.text);
-//    NavigatorUtils.push(context, StoreRouter.auditPage);
+    FlutterStars.SpUtil.putString(Constant.phone, _nameController.text);
+    NavigatorUtils.push(context, StoreRouter.auditPage);
   }
 }

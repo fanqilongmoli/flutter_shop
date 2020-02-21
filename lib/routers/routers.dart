@@ -5,6 +5,7 @@ import 'package:flutter_shop/home/webview_page.dart';
 import 'package:flutter_shop/login/login_router.dart';
 import 'package:flutter_shop/routers/router_init.dart';
 import 'package:flutter_shop/routers/404.dart';
+import 'package:flutter_shop/store/store_router.dart';
 
 class Routes {
   static String home = '/home';
@@ -33,6 +34,7 @@ class Routes {
 
     /// 各自路由各自模块管理，统一在此添加初始化
     _listRouter.add(LoginRouter());
+    _listRouter.add(StoreRouter());
 
     /// 初始化路由
     _listRouter.forEach((routerProvider) {

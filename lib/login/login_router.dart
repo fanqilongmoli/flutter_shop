@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_shop/login/page/login_page.dart';
+import 'package:flutter_shop/login/page/register_page.dart';
 import 'package:flutter_shop/routers/router_init.dart';
 
 class LoginRouter implements IRouterProvider {
@@ -14,5 +15,7 @@ class LoginRouter implements IRouterProvider {
   void initRouter(Router router) {
     router.define(loginPage,
         handler: Handler(handlerFunc: (context, parameters) => LoginPage()));
+    router.define(registerPage,
+        handler: Handler(handlerFunc: (context, parameters) => RegisterPage()));
   }
 }
