@@ -22,6 +22,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.4.0"
+  barcode_scan:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: fbd6ece45f079f7ec5f48532e668be2f70135904
+      url: "https://github.com/simplezhli/flutter_barcode_reader.git"
+    source: git
+    version: "1.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -111,6 +120,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_2d_amap:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "5dacbb3cdb6071db18d6f4661c4337fc68a92a7b"
+      url: "https://github.com/simplezhli/flutter_2d_amap.git"
+    source: git
+    version: "0.0.3"
   flutter_cache_manager:
     dependency: transitive
     description:
