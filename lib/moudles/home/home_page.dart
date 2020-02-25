@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/home/provider/home_provider.dart';
+import 'package:flutter_shop/moudles/home/provider/home_provider.dart';
 import 'package:flutter_shop/res/colors.dart';
 import 'package:flutter_shop/res/resources.dart';
 import 'package:flutter_shop/util/double_tap_back_exit_app.dart';
@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
   void initData() {
     _pageList = [Container(), Container(), Container(), Container()];
   }
-
+  // 构建 bottomBarItems
   List<BottomNavigationBarItem> _buildBottomNavigationBarItem() {
     if (_list == null) {
       var _tabImages = [
@@ -95,10 +95,10 @@ class _HomeState extends State<Home> {
               child: Text(_appBarTitles[i], key: Key(_appBarTitles[i])),
             ));
       });
-      return _list;
     }
+    return _list;
   }
-
+  // 构建 夜间模式 bottomBarItems
   List<BottomNavigationBarItem> _buildDarkBottomNavigationBarItem() {
     if (_listDark == null) {
       var _tabImagesDark = [

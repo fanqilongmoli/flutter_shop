@@ -1,12 +1,12 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/home/home_page.dart';
-import 'package:flutter_shop/home/webview_page.dart';
-import 'package:flutter_shop/login/login_router.dart';
+import 'package:flutter_shop/moudles/home/home_page.dart';
+import 'package:flutter_shop/moudles/home/webview_page.dart';
+import 'package:flutter_shop/moudles/login/login_router.dart';
+import 'package:flutter_shop/moudles/shop/shop_router.dart';
+import 'package:flutter_shop/moudles/store/store_router.dart';
 import 'package:flutter_shop/routers/router_init.dart';
 import 'package:flutter_shop/routers/404.dart';
-import 'package:flutter_shop/shop/shop_router.dart';
-import 'package:flutter_shop/store/store_router.dart';
 
 class Routes {
   static String home = '/home';

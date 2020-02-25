@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_2d_amap/flutter_2d_amap.dart';
+import 'package:flutter_shop/moudles/shop/shop_router.dart';
+import 'package:flutter_shop/moudles/store/store_router.dart';
 import 'package:flutter_shop/res/resources.dart';
 import 'package:flutter_shop/routers/fluro_navigator.dart';
-import 'package:flutter_shop/shop/shop_router.dart';
 import 'package:flutter_shop/util/theme_utils.dart';
 import 'package:flutter_shop/util/toast.dart';
 import 'package:flutter_shop/widgets/app_bar.dart';
+import 'package:flutter_shop/widgets/my_button.dart';
 import 'package:flutter_shop/widgets/select_image.dart';
 import 'package:flutter_shop/widgets/store_select_text_item.dart';
 import 'package:flutter_shop/widgets/text_field_item.dart';
@@ -39,16 +41,26 @@ class _StoreAuditPageState extends State<StoreAuditPage> {
         child: Column(
           children: <Widget>[
             Expanded(
-                flex: 1,
-                child: defaultTargetPlatform == TargetPlatform.iOS
-                    ? KeyboardActions(
-                        tapOutsideToDismiss: true, //键盘外部按下将其关闭
-                        config: _buildConfig(context),
-                        child: _buildBody(),
-                      )
-                    : SingleChildScrollView(
-                        child: _buildBody(),
-                      ))
+              flex: 1,
+              child: defaultTargetPlatform == TargetPlatform.iOS
+                  ? KeyboardActions(
+                      tapOutsideToDismiss: true, //键盘外部按下将其关闭
+                      config: _buildConfig(context),
+                      child: _buildBody(),
+                    )
+                  : SingleChildScrollView(
+                      child: _buildBody(),
+                    ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+              child: MyButton(
+                onPressed: () {
+                  NavigatorUtils.push(context, StoreRouter.auditResultPage);
+                },
+                text: '提交',
+              ),
+            )
           ],
         ),
       ),
@@ -67,7 +79,7 @@ class _StoreAuditPageState extends State<StoreAuditPage> {
 
   _buildBody() {
     return Padding(
-      padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+      padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
         children: <Widget>[
           Gaps.vGap5,
@@ -121,6 +133,27 @@ class _StoreAuditPageState extends State<StoreAuditPage> {
                 });
               });
             },
+          ),
+          Gaps.vGap16,
+          Gaps.vGap16,
+          Padding(
+            padding: EdgeInsets.only(left: 16.0),
+            child: Text(
+              '店主信息',
+              style: TextStyles.textBold18,
+            ),
+          ),
+          Gaps.vGap16,
+          TextFieldItem(
+            title: '店主姓名',
+            hintText: '请填写店主姓名',
+            focusNode: _nodeText2,
+          ),
+          TextFieldItem(
+            title: '联系电话',
+            hintText: '请填店主联系电话',
+            focusNode: _nodeText3,
+            textInputType: TextInputType.phone,
           )
         ],
       ),
