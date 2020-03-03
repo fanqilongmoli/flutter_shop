@@ -1,11 +1,22 @@
-
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/util/theme_utils.dart';
+import 'package:flutter_shop/util/toast.dart';
 import 'package:keyboard_actions/keyboard_action.dart';
 import 'package:keyboard_actions/keyboard_actions_config.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
+  /// 调起拨号页
+  static void launchTelURL(String phone) async {
+    String url = 'tel:' + phone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      Toast.show('拨号失败！');
+    }
+  }
+
   static KeyboardActionsConfig getKeyboardActionsConfig(
       BuildContext context, List<FocusNode> list) {
     return KeyboardActionsConfig(
@@ -23,6 +34,12 @@ class Utils {
                         ));
                   }
                 ])));
+  }
+
+  static String formatPrice(String price, {format: MoneyFormat.END_INTEGER}) {
+    return MoneyUtil.changeYWithUnit(
+        NumUtil.getDoubleByValueStr(price), MoneyUnit.YUAN,
+        format: format);
   }
 }
 

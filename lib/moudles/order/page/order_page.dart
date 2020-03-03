@@ -11,6 +11,8 @@ import 'package:flutter_shop/widgets/my_card.dart';
 import 'package:flutter_shop/widgets/my_flexible_space_bar.dart';
 import 'package:provider/provider.dart';
 
+import 'order_list_page.dart';
+
 /// 订单页面
 class OrderPage extends StatefulWidget {
   @override
@@ -60,28 +62,29 @@ class _OrderPageState extends State<OrderPage>
                 child: isDark
                     ? null
                     : DecoratedBox(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Color(0xFF5793FA),
-                        Color(0xFF4647FA)
-                      ])),
-                ),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [
+                          Color(0xFF5793FA),
+                          Color(0xFF4647FA)
+                        ])),
+                      ),
               ),
             ),
             NestedScrollView(
-                key: Key('order_list'),
-                physics: ClampingScrollPhysics(),
-                headerSliverBuilder: (context, innerBoxIsScrolled) =>
-                    _sliverBuilder(context),
-                body: PageView.builder(
-                    key: Key('order_list'),
-                    itemCount: 5,
-                    onPageChanged: (index) async {
-                      provider.setIndex(index);
-                      _tabController.animateTo(index);
-                    },
-                    controller: _pageController,
-                    itemBuilder: null))
+              key: Key('order_list'),
+              physics: ClampingScrollPhysics(),
+              headerSliverBuilder: (context, innerBoxIsScrolled) =>
+                  _sliverBuilder(context),
+              body: PageView.builder(
+                  key: Key('pageView'),
+                  itemCount: 5,
+                  onPageChanged: (index) async {
+                    provider.setIndex(index);
+                    _tabController.animateTo(index);
+                  },
+                  controller: _pageController,
+                  itemBuilder: (_, index) => OrderListPage(index: index)),
+            ),
           ],
         ),
       ),
@@ -120,15 +123,15 @@ class _OrderPageState extends State<OrderPage>
           flexibleSpace: MyFlexibleSpaceBar(
             background: isDark
                 ? Container(
-              height: 113.0,
-              color: Colours.dark_bg_color,
-            )
+                    height: 113.0,
+                    color: Colours.dark_bg_color,
+                  )
                 : LoadAssetImage(
-              'order/order_bg',
-              width: double.infinity,
-              height: 113.0,
-              fit: BoxFit.fill,
-            ),
+                    'order/order_bg',
+                    width: double.infinity,
+                    height: 113.0,
+                    fit: BoxFit.fill,
+                  ),
             centerTitle: true,
             titlePadding: EdgeInsetsDirectional.only(start: 16.0, bottom: 14.0),
             collapseMode: CollapseMode.pin,
@@ -147,8 +150,8 @@ class _OrderPageState extends State<OrderPage>
                 image: isDark
                     ? null
                     : DecorationImage(
-                    image: ImageUtils.getAssetImage('order/order_bg1'),
-                    fit: BoxFit.fill),
+                        image: ImageUtils.getAssetImage('order/order_bg1'),
+                        fit: BoxFit.fill),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -157,25 +160,31 @@ class _OrderPageState extends State<OrderPage>
                     height: 80.0,
                     padding: EdgeInsets.only(top: 8.0),
                     child: TabBar(
-                        labelPadding: EdgeInsets.symmetric(horizontal: 0),
-                        controller: _tabController,
-                        labelColor: ThemeUtils.isDark(context)
-                            ? Colours.dark_text
-                            : Colours.text,
-                        unselectedLabelColor: ThemeUtils.isDark(context)
-                            ? Colours.dark_text_gray
-                            : Colours.text,
-                        labelStyle: TextStyles.textBold14,
-                        unselectedLabelStyle:
-                        TextStyle(fontSize: Dimens.font_sp14),
-                        indicatorColor: Colors.transparent,
-                        tabs: [
-                          _TabView(0, '新订单'),
-                          _TabView(1, '待配送'),
-                          _TabView(2, '待完成'),
-                          _TabView(3, '已完成'),
-                          _TabView(4, '已取消'),
-                        ]),
+                      labelPadding: EdgeInsets.symmetric(horizontal: 0),
+                      controller: _tabController,
+                      labelColor: ThemeUtils.isDark(context)
+                          ? Colours.dark_text
+                          : Colours.text,
+                      unselectedLabelColor: ThemeUtils.isDark(context)
+                          ? Colours.dark_text_gray
+                          : Colours.text,
+                      labelStyle: TextStyles.textBold14,
+                      unselectedLabelStyle:
+                          TextStyle(fontSize: Dimens.font_sp14),
+                      indicatorColor: Colors.transparent,
+                      tabs: [
+                        _TabView(0, '新订单'),
+                        _TabView(1, '待配送'),
+                        _TabView(2, '待完成'),
+                        _TabView(3, '已完成'),
+                        _TabView(4, '已取消'),
+                      ],
+                      onTap: (index) {
+                        if (mounted) {
+                          _pageController.jumpToPage(index);
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -243,22 +252,20 @@ class _TabView extends StatelessWidget {
           right: 0.0,
           child: index < 3
               ? DecoratedBox(
-            decoration: BoxDecoration(
-              color: Theme
-                  .of(context)
-                  .errorColor,
-              borderRadius: BorderRadius.circular(11.0),
-            ),
-            child: Padding(
-              padding:
-              EdgeInsets.symmetric(horizontal: 5.5, vertical: 2.0),
-              child: Text(
-                '10',
-                style: TextStyle(
-                    color: Colors.white, fontSize: Dimens.font_sp12),
-              ),
-            ),
-          )
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).errorColor,
+                    borderRadius: BorderRadius.circular(11.0),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.5, vertical: 2.0),
+                    child: Text(
+                      '10',
+                      style: TextStyle(
+                          color: Colors.white, fontSize: Dimens.font_sp12),
+                    ),
+                  ),
+                )
               : Gaps.empty),
     );
   }
@@ -271,8 +278,8 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   SliverAppBarDelegate(this.widget, this.height);
 
   @override
-  Widget build(BuildContext context, double shrinkOffset,
-      bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return widget;
   }
 

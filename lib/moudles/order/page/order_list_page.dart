@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/moudles/order/provider/order_page_provider.dart';
+import 'package:flutter_shop/moudles/order/widgets/order_item.dart';
+import 'package:flutter_shop/moudles/order/widgets/order_tag_item.dart';
+import 'package:flutter_shop/widgets/my_refresh_list.dart';
 import 'package:flutter_shop/widgets/state_layout.dart';
 import 'package:provider/provider.dart';
 
@@ -66,18 +69,53 @@ class _OrderListPageState extends State<OrderListPage>
                       type: _stateType,
                     ),
                   )
-                : SliverList(delegate: SliverChildBuilderDelegate((BuildContext context,int index){
-                  return index < _list.length?(index % 5==0?)
-            })),
+                : SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      return index < _list.length
+                          ? (index % 5 == 0
+                              ? OrderTagItem(
+                                  date: '2020年2月5日',
+                                  orderTotal: 4,
+                                )
+                              : OrderItem(tabIndex: _index, index: index))
+                          : MoreWidget(_list.length, _hasMore(), 10);
+                    }, childCount: _list.length + 1),
+                  ),
           ),
         ),
       ),
     );
   }
 
-  void _onRefresh() {}
+  bool _hasMore() {
+    return _page < _maxPage;
+  }
 
-  void _loadMore() {}
+  Future _onRefresh() async {
+    await Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _page = 1;
+        _list = List.generate(10, (i) => 'newItem：$i');
+      });
+    });
+  }
+
+  Future _loadMore() async {
+    if (_isLoading) {
+      return;
+    }
+    if (!_hasMore()) {
+      return;
+    }
+    await Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _list.addAll(List.generate(10, (i) => 'newItem：$i'));
+        _page++;
+        _isLoading = false;
+      });
+    });
+  }
 
   @override
   bool get wantKeepAlive => true;
